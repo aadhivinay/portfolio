@@ -43,7 +43,7 @@ const Projects: React.FC = () => {
       image: './Vinay profile.jpg',
       category: 'web',
       tags: ['HTML', 'CSS', 'JavaScript'],
-      liveUrl: 'https://aadhivinay.github.io./vv/',
+      liveUrl: 'https://aadhivinayportfolio.vercel.app/',
       githubUrl: '#'
     },
     {
