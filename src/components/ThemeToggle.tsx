@@ -11,7 +11,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ isDark, setIsDark }) => {
   return (
     <motion.button
       onClick={() => setIsDark(!isDark)}
-      className={`fixed top-2 right-20 md:top-2 md:right-4 z-[60] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
+      className={`fixed top-2 right-14 md:top-2 md:right-4 z-[60] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
         isDark
           ? 'bg-slate-800 text-yellow-400 shadow-lg shadow-slate-900/25'
           : 'bg-white text-slate-600 shadow-lg shadow-slate-200/50'
