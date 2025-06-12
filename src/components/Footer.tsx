@@ -135,7 +135,7 @@ const Footer: React.FC = () => {
               <p className="text-slate-400 text-sm mb-4">
                 Get notified about my latest projects and insights.
               </p>
-              <div className="flex">
+              <div className="flex flex-col sm:flex-row w-full gap-2">
                 <input
                   type="email"
                   placeholder="Your email address"
