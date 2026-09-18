@@ -1,138 +1,171 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Award, Users, Target } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import SectionHeader from './SectionHeader';
+import { GraduationCap, Layers, BarChart3, Code, Users, Briefcase, ArrowUpRight } from 'lucide-react';
 
-const About: React.FC = () => {
-  const stats = [
-    { icon: Target, label: 'Projects Completed', value: '15+' },
-    { icon: Award, label: 'Years Experience', value: '1+' },
-    { icon: Users, label: 'Client Satisfaction', value: '100%' },
-  ];
+const profileBlocks = [
+  { label: 'Education', value: 'B.Tech — Computer Science & Engineering', icon: GraduationCap },
+  { label: 'SAP Focus', value: 'MM · FI · SD · S/4HANA', icon: Layers },
+  { label: 'Analytics', value: 'Excel · SQL · Power BI', icon: BarChart3 },
+  { label: 'Background', value: 'Data Analytics · Software Development', icon: Briefcase },
+];
+
+const skillCategories = [
+  {
+    key: 'sap',
+    label: 'SAP',
+    icon: Layers,
+    skills: ['SAP S/4HANA', 'SAP MM', 'SAP FI', 'SAP SD', 'P2P', 'O2C', 'Master Data', 'Testing', 'Jira', 'Xray'],
+  },
+  {
+    key: 'analytics',
+    label: 'Analytics',
+    icon: BarChart3,
+    skills: ['Excel', 'Power BI', 'SQL', 'MySQL', 'Data Cleaning', 'Dashboard Development', 'Reporting', 'Trend Analysis'],
+  },
+  {
+    key: 'development',
+    label: 'Development',
+    icon: Code,
+    skills: ['Python', 'React.js', 'JavaScript', 'HTML', 'CSS', 'Kotlin', 'XML'],
+  },
+  {
+    key: 'professional',
+    label: 'Professional',
+    icon: Users,
+    skills: ['Analytical Thinking', 'Problem Solving', 'Communication', 'Teamwork', 'Collaboration', 'Documentation', 'Attention to Detail', 'Adaptability', 'Learning Agility'],
+  },
+];
+
+export default function About() {
+  const [activeCategory, setActiveCategory] = useState('sap');
+  const activeSkills = skillCategories.find(c => c.key === activeCategory)!;
 
   return (
-    <section id="about" className="py-20 bg-white dark:bg-slate-800">
-      <div className="container mx-auto px-6">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-800 dark:text-white mb-4">
-            About Me
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-            Get to know me better and discover my journey
-          </p>
-        </motion.div>
+    <section id="about" className="py-20 lg:py-32 bg-white dark:bg-ink-900">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          number="02"
+          label="Profile"
+          title="Technology background. Business process mindset. SAP-focused future."
+          align="left"
+        />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">
-              GDSC TKRCET Campaign Facilitator
-            </h3>
-            <div className="space-y-4 text-slate-600 dark:text-slate-400">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 max-w-6xl mx-auto">
+          {/* Left: Profile statement + blocks */}
+          <div>
+            <motion.div
+              className="space-y-4 text-ink-600 dark:text-ink-400 text-base leading-relaxed mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true, margin: '-80px' }}
+            >
               <p>
-                I am a passionate Data Analyst and Web Designer who graduated with a Bachelor of Technology 
-                in Computer Science Engineering from TKR Educational Institutions.
+                I am a B.Tech Computer Science and Engineering graduate currently pursuing
+                hands-on SAP S/4HANA training through the SAP Smart Field Transformation program.
+                My training covers SAP MM, FI, and SD modules with a strong focus on real-world
+                business processes.
               </p>
               <p>
-                With a strong foundation in data analysis and web development, I love transforming complex 
-                data into meaningful insights and creating engaging digital experiences. My expertise spans 
-                across competitive coding with C++ (5-star HackerRank rating) and Python development.
+                I have completed a comprehensive SAP capstone project spanning Procure-to-Pay (P2P)
+                and Order-to-Cash (O2C) cycles, MM-FI and SD-FI integration, testing, defect
+                reporting with Jira and Xray, and full project documentation.
               </p>
               <p>
-                As a GDSC Campaign Facilitator (Kotlin), I led initiatives that bridge technology and community, 
-                fostering innovation and learning among peers.
+                Previously, I worked as a Data Analyst Intern at Kulture Hire, where I developed
+                interactive Power BI dashboards, wrote optimized SQL queries, and delivered
+                actionable business insights. This analytical background complements my SAP
+                functional training and strengthens my problem-solving approach.
               </p>
-            </div>
+            </motion.div>
 
-            {/* Skills Progress */}
-            <div className="mt-8 space-y-4">
-              {[
-                { skill: 'Data Analysis', percentage: 90 },
-                { skill: 'Web Development', percentage: 85 },
-                { skill: 'Problem Solving', percentage: 95 },
-                { skill: 'Python Programming', percentage: 88 },
-              ].map((item, index) => (
+            {/* Profile blocks */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {profileBlocks.map((block, i) => (
                 <motion.div
-                  key={item.skill}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="flex justify-between mb-2">
-                    <span className="text-slate-700 dark:text-slate-300 font-medium">{item.skill}</span>
-                    <span className="text-cyan-600 dark:text-cyan-400">{item.percentage}%</span>
-                  </div>
-                  <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
-                    <motion.div
-                      className="bg-gradient-to-r from-cyan-500 to-blue-600 h-2 rounded-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${item.percentage}%` }}
-                      transition={{ duration: 1, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                    ></motion.div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Image and Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            <div className="relative">
-              <motion.img
-                src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt="Working on projects"
-                className="rounded-2xl shadow-2xl"
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.3 }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent rounded-2xl"></div>
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-3 gap-4">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  className="bg-slate-50 dark:bg-slate-700 p-6 rounded-xl text-center hover:shadow-lg transition-shadow"
-                  initial={{ opacity: 0, y: 30 }}
+                  key={block.label}
+                  className="group p-5 rounded-xl bg-ink-50 dark:bg-ink-800/50 border border-ink-200/60 dark:border-ink-700/60 hover:border-enterprise-300 dark:hover:border-enterprise-700 hover:shadow-card-hover transition-all duration-300"
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -5 }}
+                  transition={{ delay: i * 0.08 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  data-cursor="explore"
                 >
-                  <stat.icon className="w-8 h-8 text-cyan-600 dark:text-cyan-400 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-slate-800 dark:text-white mb-1">
-                    {stat.value}
+                  <div className="flex items-center gap-2 mb-3">
+                    <block.icon size={16} className="text-enterprise-500" strokeWidth={2} />
+                    <span className="text-xs font-bold tracking-wider uppercase text-enterprise-600 dark:text-enterprise-400">
+                      {block.label}
+                    </span>
                   </div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">
-                    {stat.label}
-                  </div>
+                  <p className="text-sm font-semibold text-ink-800 dark:text-ink-200 leading-snug">
+                    {block.value}
+                  </p>
                 </motion.div>
               ))}
+            </div>
+          </div>
+
+          {/* Right: Interactive Skill Map */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true, margin: '-80px' }}
+          >
+            <div className="sticky top-24">
+              <h3 className="text-sm font-bold tracking-wider uppercase text-ink-400 dark:text-ink-500 mb-6">
+                Skill Map
+              </h3>
+
+              {/* Category selector */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {skillCategories.map((cat) => {
+                  const isActive = activeCategory === cat.key;
+                  return (
+                    <button
+                      key={cat.key}
+                      onClick={() => setActiveCategory(cat.key)}
+                      className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                        isActive
+                          ? 'bg-enterprise-600 text-white shadow-md shadow-enterprise-500/20'
+                          : 'bg-ink-50 dark:bg-ink-800/60 text-ink-500 dark:text-ink-400 border border-ink-200 dark:border-ink-700 hover:border-enterprise-300 dark:hover:border-enterprise-700'
+                      }`}
+                    >
+                      <cat.icon size={15} />
+                      {cat.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Skills display */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeCategory}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25 }}
+                  className="flex flex-wrap gap-2.5"
+                >
+                  {activeSkills.skills.map((skill, i) => (
+                    <motion.span
+                      key={skill}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.04 }}
+                      className="px-4 py-2.5 bg-white dark:bg-ink-800 text-ink-700 dark:text-ink-300 rounded-xl text-sm font-medium border border-ink-200 dark:border-ink-700 hover:border-enterprise-300 dark:hover:border-enterprise-700 hover:text-enterprise-700 dark:hover:text-enterprise-400 hover:shadow-sm transition-all duration-150"
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

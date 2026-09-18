@@ -1,40 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import CustomCursor from './components/CustomCursor';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
-import Skills from './components/Skills';
+import SapExpertise from './components/SapExpertise';
+import BusinessProcesses from './components/BusinessProcesses';
+import SapCapstone from './components/SapCapstone';
+import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import ThemeToggle from './components/ThemeToggle';
 
 function App() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
-      isDark ? 'dark bg-slate-900' : 'bg-gradient-to-br from-slate-50 to-blue-50'
-    }`}>
-      <Header isDark={isDark} />
-      <ThemeToggle isDark={isDark} setIsDark={setIsDark} />
-      
+    <div className="min-h-screen bg-ink-50 dark:bg-ink-950 transition-colors duration-300">
+      <CustomCursor />
+      <Header isDark={isDark} setIsDark={setIsDark} />
       <main>
         <Hero />
         <About />
-        <Skills />
+        <SapExpertise />
+        <BusinessProcesses />
+        <SapCapstone />
+        <Experience />
         <Projects />
         <Contact />
       </main>
-      
       <Footer />
     </div>
   );

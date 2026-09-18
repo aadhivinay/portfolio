@@ -1,182 +1,201 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowRight, Download, Linkedin, Github, Mail } from 'lucide-react';
 
-const Hero: React.FC = () => {
+const RESUME_URL = 'https://drive.google.com/file/d/1rJBPBQg8kNfbFkpXABba7sezVos9YFQK/view?usp=drive_link';
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+};
+
+export default function Hero() {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background Animation */}
+    <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-24 pb-12">
+      {/* Background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"></div>
-        <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-cyan-200 dark:bg-cyan-900 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-xl opacity-70"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
+        <div className="absolute inset-0 bg-gradient-to-br from-ink-50 via-white to-ink-50 dark:from-ink-950 dark:via-ink-900 dark:to-ink-950" />
+        <div className="absolute top-1/3 -left-32 w-[500px] h-[500px] bg-enterprise-100/40 dark:bg-enterprise-900/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 -right-32 w-[500px] h-[500px] bg-enterprise-200/30 dark:bg-enterprise-800/10 rounded-full blur-3xl" />
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+          style={{
+            backgroundImage: 'linear-gradient(rgb(37 99 235) 1px, transparent 1px), linear-gradient(90deg, rgb(37 99 235) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
           }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        ></motion.div>
-        <motion.div
-          className="absolute top-40 right-10 w-72 h-72 bg-blue-200 dark:bg-blue-900 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-xl opacity-70"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        ></motion.div>
+        />
       </div>
 
-      <div className="container mx-auto px-6 py-20">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Text Content */}
-          <motion.div
-            className="flex-1 text-center lg:text-left"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.p
-              className="text-cyan-600 dark:text-cyan-400 font-medium mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              Hello, I'm
-            </motion.p>
-            
-            <motion.h1
-              className="text-5xl lg:text-7xl font-bold text-slate-800 dark:text-white mb-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              Aadhi Vinay
-            </motion.h1>
-            
-            <motion.h2
-              className="text-2xl lg:text-3xl text-slate-600 dark:text-slate-300 mb-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-            >
-              <span className="text-cyan-600 dark:text-cyan-400 font-semibold">Data Analyst</span> & 
-              <span className="text-blue-600 dark:text-blue-400 font-semibold"> Web Designer</span>
-            </motion.h2>
-            
-            <motion.p
-              className="text-slate-600 dark:text-slate-400 text-lg mb-8 max-w-2xl"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              Passionate about transforming data into insights and creating beautiful digital experiences. 
-              GDSC TKRCET Campaign Facilitator with expertise in competitive coding and problem-solving.
-            </motion.p>
-            
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 mb-8"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-            >
-              <motion.a
-                href="#projects"
-                className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transform transition-all duration-300"
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(6, 182, 212, 0.3)" }}
-                whileTap={{ scale: 0.95 }}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <motion.div variants={stagger} initial="hidden" animate="show" className="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center">
+            {/* Left: Content */}
+            <div className="order-2 lg:order-1">
+              <motion.div variants={item} className="flex items-center gap-3 mb-6">
+                <div className="h-px w-8 bg-enterprise-500" />
+                <span className="text-xs font-bold tracking-[0.25em] uppercase text-enterprise-600 dark:text-enterprise-400">
+                  SAP Consulting &middot; Business Process &middot; Technology
+                </span>
+              </motion.div>
+
+              <motion.h1
+                variants={item}
+                className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-ink-900 dark:text-white tracking-tight leading-[1.05]"
               >
-                View My Work
-              </motion.a>
-              <motion.a
-                href="#contact"
-                className="border-2 border-cyan-500 text-cyan-600 dark:text-cyan-400 px-8 py-3 rounded-full font-medium hover:bg-cyan-500 hover:text-white transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get In Touch
-              </motion.a>
-            </motion.div>
-            
-            {/* Social Links */}
-            <motion.div
-              className="flex justify-center lg:justify-start space-x-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 }}
-            >
-              {[
-                { icon: Github, href: "https://github.com/aadhivinay", label: "GitHub" },
-                { icon: Linkedin, href: "https://www.linkedin.com/in/aadhi-vinay-063251234/", label: "LinkedIn" },
-                { icon: Mail, href: "mailto:aadhivinay2002@gmail.com", label: "Email" }
-              ].map((social, index) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
+                Aadhi Vinay
+              </motion.h1>
+
+              <motion.div variants={item} className="mt-4 flex flex-wrap items-center gap-3">
+                <span className="text-xl sm:text-2xl font-semibold text-ink-700 dark:text-ink-200">
+                  SAP Consultant
+                </span>
+                <span className="hidden sm:inline text-ink-300 dark:text-ink-600">|</span>
+                <div className="flex gap-2">
+                  {['MM', 'FI', 'SD', 'S/4HANA'].map((m) => (
+                    <span key={m} className="px-2.5 py-1 text-xs font-bold tracking-wide bg-enterprise-50 dark:bg-enterprise-900/40 text-enterprise-700 dark:text-enterprise-300 rounded-md border border-enterprise-200 dark:border-enterprise-800/50">
+                      {m}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.p variants={item} className="mt-6 text-base sm:text-lg text-ink-500 dark:text-ink-400 leading-relaxed max-w-xl text-pretty">
+                Transforming business processes through SAP, analytics, and technology.
+                Computer Science graduate with hands-on S/4HANA training across MM, FI, and SD —
+                with a capstone spanning P2P, O2C, integration, testing, and documentation.
+              </motion.p>
+
+              <motion.div variants={item} className="mt-8 flex flex-col sm:flex-row gap-3">
+                <a
+                  href="#about"
+                  data-cursor="explore"
+                  data-cursor-label="EXPLORE"
+                  onClick={(e) => { e.preventDefault(); document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' }); }}
+                  className="group inline-flex items-center justify-center gap-2 bg-enterprise-600 text-white px-7 py-3.5 rounded-xl font-semibold text-sm shadow-lg shadow-enterprise-500/20 hover:shadow-xl hover:shadow-enterprise-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+                >
+                  Explore Profile
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </a>
+                <a
+                  href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 shadow-lg hover:shadow-xl transition-all duration-300"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="group inline-flex items-center justify-center gap-2 bg-white dark:bg-ink-800 text-ink-700 dark:text-ink-200 border border-ink-200 dark:border-ink-700 px-7 py-3.5 rounded-xl font-semibold text-sm hover:border-enterprise-400 dark:hover:border-enterprise-700 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
                 >
-                  <social.icon size={20} />
-                </motion.a>
-              ))}
+                  <Download size={16} className="group-hover:translate-y-0.5 transition-transform" />
+                  Download Resume
+                </a>
+              </motion.div>
+
+              <motion.div variants={item} className="mt-8 flex gap-3">
+                {[
+                  { icon: Linkedin, href: 'https://www.linkedin.com/in/aadhi-vinay-063251234/', label: 'LinkedIn' },
+                  { icon: Github, href: 'https://github.com/aadhivinay', label: 'GitHub' },
+                  { icon: Mail, href: 'mailto:aadhivinay2002@gmail.com', label: 'Email' },
+                ].map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="w-11 h-11 bg-white dark:bg-ink-800 rounded-xl flex items-center justify-center text-ink-400 dark:text-ink-500 border border-ink-200 dark:border-ink-700 hover:text-enterprise-600 dark:hover:text-enterprise-400 hover:border-enterprise-300 dark:hover:border-enterprise-700 hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    <s.icon size={18} />
+                  </a>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Right: Premium Profile Portrait */}
+            <motion.div variants={item} className="order-1 lg:order-2 flex justify-center lg:justify-end">
+              <ProfilePortrait />
             </motion.div>
           </motion.div>
-          
-          {/* Profile Image */}
-<motion.div
-  className="flex-1 max-w-md md:-ml-6 lg:-ml-12"
-  initial={{ opacity: 0, x: 50 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ duration: 0.8 }}
->
-  <div className="relative w-fit">
-    <div className="absolute inset-0 rounded-full z-0">
-      <motion.div
-        className="w-full h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur-sm opacity-75"
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </div>
-    <motion.img
-      src="/Vinay profile.jpg"
-      alt="Aadhi Vinay"
-      className="relative w-100 h-80 rounded-full shadow-2xl z-10"
-      whileHover={{ scale: 1.05 }}
-      transition={{ duration: 0.3 }}
-    />
-  </div>
-</motion.div>
-
         </div>
-        
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="text-slate-400 dark:text-slate-500"
-          >
-            <ArrowDown size={24} />
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );
-};
+}
 
-export default Hero;
+function ProfilePortrait() {
+  return (
+    <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
+      {/* Outer animated accent ring */}
+      <motion.div
+        className="absolute inset-0 rounded-full border-2 border-enterprise-200 dark:border-enterprise-800/50"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+      />
+      {/* Dashed inner ring */}
+      <motion.div
+        className="absolute inset-3 rounded-full border border-dashed border-enterprise-300/60 dark:border-enterprise-700/40"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+      />
+
+      {/* Offset shadow frame */}
+      <div className="absolute inset-4 rounded-full bg-enterprise-100/30 dark:bg-enterprise-900/20 translate-x-2 translate-y-2" />
+
+      {/* Portrait frame */}
+      <motion.div
+        className="absolute inset-4 rounded-full overflow-hidden bg-ink-100 dark:bg-ink-800 shadow-premium ring-1 ring-enterprise-200/50 dark:ring-enterprise-800/50 group"
+        data-cursor="view"
+        data-cursor-label="PROFILE"
+        whileHover={{ y: -4, scale: 1.02 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      >
+        <img
+          src="/Personal_Profile.jpeg"
+          alt="Aadhi Vinay — SAP Consultant"
+          className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+          loading="eager"
+        />
+        {/* Subtle gradient overlay at bottom for label legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-900/20 to-transparent" />
+      </motion.div>
+
+      {/* Floating label: SAP CONSULTANT */}
+      <motion.div
+        className="absolute -top-2 right-2 sm:right-0 bg-white dark:bg-ink-800 px-3 py-1.5 rounded-lg shadow-lg border border-enterprise-200 dark:border-ink-700"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.0, duration: 0.4 }}
+      >
+        <span className="text-[10px] font-bold tracking-wider uppercase text-enterprise-600 dark:text-enterprise-400">
+          SAP Consultant
+        </span>
+      </motion.div>
+
+      {/* Floating metadata: MM · FI · SD */}
+      <motion.div
+        className="absolute -bottom-2 left-2 sm:left-0 bg-enterprise-600 px-3 py-1.5 rounded-lg shadow-lg"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.4 }}
+      >
+        <span className="text-[10px] font-bold tracking-wider uppercase text-white">
+          MM · FI · SD
+        </span>
+      </motion.div>
+
+      {/* Corner accent dots */}
+      <motion.div
+        className="absolute top-1/2 -left-1 w-2 h-2 rounded-full bg-enterprise-500"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.9 }}
+      />
+      <motion.div
+        className="absolute top-1/2 -right-1 w-2 h-2 rounded-full bg-enterprise-500"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.1 }}
+      />
+    </div>
+  );
+}
