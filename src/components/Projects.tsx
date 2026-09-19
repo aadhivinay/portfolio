@@ -11,7 +11,7 @@ const projects = [
     image: 'https://images.pexels.com/photos/207580/pexels-photo-207580.jpeg?auto=compress&cs=tinysrgb&w=800',
     category: 'web',
     tags: ['HTML', 'CSS', 'JavaScript', 'Responsive'],
-    liveUrl: 'https://aadhivinay.github.io./vv/',
+    liveUrl: 'https://sunshinehighschool.vercel.app/',
     githubUrl: '',
     featured: false,
   },
